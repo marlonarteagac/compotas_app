@@ -100,3 +100,21 @@ class Venta(Database):
             (self.marca_p, self.cantidad, self.v_bruto, self.v_neto)
         )
         self.commit()
+
+#clase que hereda de Venta
+class VentaConDescuento(Venta):
+    def calcular_valor_neto(self):
+        # Aplicar descuento basado en la marca y la cantidad
+        if self.marca_p.lower() == "emma":
+            if self.cantidad < 100:
+                descuento = 0.20  # 20% de descuento
+            elif 100 <= self.cantidad <= 200:
+                descuento = 0.30  # 30% de descuento
+            else:
+                descuento = 0.40  # 40% de descuento
+        else:
+            # Si no es "Emma", no se aplica descuento
+            descuento = 0
+
+        # Valor neto con el descuento aplicado
+        return self.v_bruto * (1 - descuento)

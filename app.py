@@ -1,5 +1,5 @@
 from flask import Flask, render_template, redirect, url_for, flash
-from modelo import Producto, Venta
+from modelo import Producto, Venta, VentaConDescuento
 from formularios import ProductoForm, VentaForm
 
 app = Flask(__name__)
@@ -36,10 +36,14 @@ def vender_producto():
     form.producto.choices = [(producto.marca_p, producto.marca_p) for producto in productos]  # (marca, marca)
 
     if form.validate_on_submit():
-        # Crear la venta con el producto seleccionado y la cantidad
-        venta = Venta(form.producto.data, form.cantidad.data)
+        # Usar la clase correcta basada en la marca
+        if form.producto.data.lower() == "emma":
+            venta = VentaConDescuento(form.producto.data, form.cantidad.data)
+        else:
+            venta = Venta(form.producto.data, form.cantidad.data)
+
         venta.guardar()
-        flash('Venta realizada con éxito', 'success')
+        flash(f'Venta realizada con éxito: {venta.marca_p}, Cantidad: {venta.cantidad}, Valor Neto: {venta.v_neto}', 'success')
         return redirect(url_for('index'))
 
     return render_template('vender_producto.html', form=form)
