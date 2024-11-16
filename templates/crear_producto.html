@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Producto</title>
+</head>
+<body>
+    <h1>Crear Producto</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <label>Marca:</label>
+        {{ form.marca(size=30) }}
+        <br>
+        <label>Precio:</label>
+        {{ form.precio() }}
+        <br>
+        {{ form.submit() }}
+
+    </form>
+    <a href="{{ url_for('index') }}">ir a productos</a>
+
+</body>
+</html>
