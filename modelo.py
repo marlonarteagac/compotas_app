@@ -77,6 +77,8 @@ class Venta(Database):
         self.precio = self.obtener_precio_producto(marca_p)
         self.v_bruto = self.calcular_valor_bruto()
         self.v_neto = self.calcular_valor_neto()
+        self.v_descuento = self.calcular_descuento()
+        
 
     def obtener_precio_producto(self, marca_p):
         # Consulta el precio del producto por su marca
@@ -87,6 +89,9 @@ class Venta(Database):
     def calcular_valor_bruto(self):
         # Valor bruto = precio * cantidad
         return self.precio * self.cantidad
+    def calcular_descuento(self):
+        # Valor bruto = precio * cantidad
+        return self.v_bruto - self.v_neto  
 
     def calcular_valor_neto(self):
         # El valor neto puede ser el mismo que el bruto, o con un descuento, por ejemplo.

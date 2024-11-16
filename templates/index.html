@@ -21,6 +21,17 @@
         {% endfor %}
        
     </table>
+   
     <a href="{{ url_for('vender_producto') }}">Vender producto</a>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <ul>
+            {% for category, message in messages %}
+                <li class="alert alert-{{ category }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+  {% endwith %}
 </body>
 </html>

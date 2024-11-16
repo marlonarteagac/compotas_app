@@ -43,7 +43,7 @@ def vender_producto():
             venta = Venta(form.producto.data, form.cantidad.data)
 
         venta.guardar()
-        flash(f'Venta realizada con éxito: {venta.marca_p}, Cantidad: {venta.cantidad}, Valor Neto: {venta.v_neto}', 'success')
+        flash(f'Venta realizada con éxito: {venta.marca_p}, Cantidad: {venta.cantidad},Valor Bruto: {venta.v_bruto}, Descuento: {venta.v_descuento} Valor Neto: {venta.v_neto},', 'success')
         return redirect(url_for('index'))
 
     return render_template('vender_producto.html', form=form)
