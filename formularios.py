@@ -1,10 +1,10 @@
 from flask_wtf import FlaskForm
-from wtforms import IntegerField, SelectField, StringField, DecimalField, SubmitField
+from wtforms import FloatField, IntegerField, SelectField, StringField, DecimalField, SubmitField
 from wtforms.validators import DataRequired, NumberRange
 
 class ProductoForm(FlaskForm):
     marca = StringField('Marca', validators=[DataRequired()])
-    precio = DecimalField('Precio', validators=[DataRequired(), NumberRange(min=0)])
+    precio = FloatField('Precio', validators=[DataRequired(), NumberRange(min=0)])
     submit = SubmitField('Crear Producto')
 
 class VentaForm(FlaskForm):
