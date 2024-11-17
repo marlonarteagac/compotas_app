@@ -13,7 +13,7 @@ def index():
     return render_template('index.html', productos=productos)
 
 
-#modulo para crear el producto
+#modulo para mostrar los el producto creados
 @app.route('/crear', methods=['GET', 'POST'])
 def crear_producto():
     form = ProductoForm()

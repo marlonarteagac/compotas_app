@@ -20,7 +20,7 @@ class Producto(Database):
     def guardar(self):
         self.cursor.execute(
             "INSERT INTO productos (marca_p, precio_p) VALUES (?, ?)",
-            (self.marca_p, self.precio_p)
+            (self.marca_p, float(self.precio_p))
         )
         self.commit()
 

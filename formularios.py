@@ -4,7 +4,7 @@ from wtforms.validators import DataRequired, NumberRange
 
 class ProductoForm(FlaskForm):
     marca = StringField('Marca', validators=[DataRequired()])
-    precio = FloatField('Precio', validators=[DataRequired(), NumberRange(min=0)])
+    precio = DecimalField('Precio', validators=[DataRequired(), NumberRange(min=0)])
     submit = SubmitField('Crear Producto')
 
 class VentaForm(FlaskForm):
