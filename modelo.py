@@ -24,6 +24,7 @@ class Producto(Database):
         )
         self.commit()
 
+#cargar todo a la pantalla de inicio
     @classmethod
     def obtener_todos(cls):
         # Conectar a la base de datos
