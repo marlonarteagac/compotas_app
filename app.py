@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, flash
-from modelo import Producto, Venta, VentaConDescuento
-from formularios import ProductoForm, VentaForm
+from modelo import Factura, Producto, Venta, VentaConDescuento
+from formularios import FacturaForm, ProductoForm, VentaForm
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mi_secreto'
@@ -50,8 +50,31 @@ def vender_producto():
 
     return render_template('vender_producto.html', form=form)
 
+@app.route('/facturas/nueva', methods=['GET', 'POST'])
+def nueva_factura():
+    factura = Factura()
+    detalles_disponibles = factura.obtener_detalles_disponibles()
+    # Preparar las opciones para el campo de selección
+    opciones = [(detalle[0], f"{detalle[1]} - Cantidad: {detalle[2]}, Valor: {detalle[3]}") for detalle in detalles_disponibles]
 
+    form = FacturaForm()
+    form.detalles.choices = opciones  # Pasar opciones al formulario
 
+    if form.validate_on_submit():
+        detalles_seleccionados = form.detalles.data
+        nueva_factura = Factura(id_df=detalles_seleccionados)
+        nueva_factura.guardar()
+        return redirect(url_for('listar_facturas'))
+
+    return render_template('nueva_factura.html', form=form)
+
+#mostrar las facturas
+@app.route('/facturas')
+def listar_facturas():
+    factura = Factura()
+    facturas = factura.obtener_facturas()
+    total = Factura.calcular_total(facturas)
+    return render_template('facturas.html', facturas=facturas, total=total)
 
 
 

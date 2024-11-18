@@ -1,0 +1,3 @@
+SELECT f.id_fc, df.marca_p, df.cantidad,  df.v_bruto ,df.v_neto FROM facturas f JOIN detalles_f df ON f.id_fc = df.id_df
+
+INSERT INTO facturas DEFAULT VALUES

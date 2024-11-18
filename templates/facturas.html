@@ -1,0 +1,28 @@
+<h1>Lista de Facturas</h1>
+<table>
+    <thead>
+        <tr>
+            <th>ID Factura</th>
+            <th>Marca</th>
+            <th>Cantidad</th>
+            <th>Valor Bruto</th>
+            <th>Valor Neto</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for factura in facturas %}
+        <tr>
+            <td>{{ factura[0] }}</td>
+            <td>{{ factura[1] }}</td>
+            <td>{{ factura[2] }}</td>
+            <td>{{ factura[3] }}</td>
+            <td>{{ factura[4] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2>Total: {{ total }}</h2>
+<a href="{{ url_for('nueva_factura') }}">Nueva factura</a><br>
+<a href="{{ url_for('vender_producto') }}">Nueva venta</a><br>
+<a href="{{ url_for('index') }}">Inicio</a>
