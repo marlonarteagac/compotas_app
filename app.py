@@ -37,7 +37,9 @@ def vender_producto():
 
     if form.validate_on_submit():
         # Usar la clase correcta basada en la marca
-        if form.producto.data.lower() == "emma":
+        if form.producto.data.lower() == "rostington":
+            venta = VentaConDescuento(form.producto.data, form.cantidad.data)
+        elif form.producto.data.lower() == "premiere":
             venta = VentaConDescuento(form.producto.data, form.cantidad.data)
         else:
             venta = Venta(form.producto.data, form.cantidad.data)

@@ -1,7 +1,7 @@
 import sqlite3
 
 class Database:
-    def __init__(self, db_path='dbp'):
+    def __init__(self, db_path='compotas_app/DB/dbp'):
         self.connection = sqlite3.connect(db_path, check_same_thread=False)
         self.cursor = self.connection.cursor()
 
@@ -28,7 +28,7 @@ class Producto(Database):
     @classmethod
     def obtener_todos(cls):
         # Conectar a la base de datos
-        conexion = sqlite3.connect('dbp')
+        conexion = sqlite3.connect('compotas_app/DB/dbp')
         cursor = conexion.cursor()
         
         # Ejecutar la consulta para obtener todos los productos
@@ -111,16 +111,25 @@ class Venta(Database):
 class VentaConDescuento(Venta):
     def calcular_valor_neto(self):
         # Aplicar descuento basado en la marca y la cantidad
-        if self.marca_p.lower() == "emma":
+        #descuentos para rostington
+        if self.marca_p.lower() == "rostington":
             if self.cantidad < 100:
                 descuento = 0.20  # 20% de descuento
+            elif 100 <= self.cantidad <= 200:
+                descuento = 0.25  # 25% de descuento
+            else:
+                descuento = 0.45  # 45% de descuento
+        #descuentos por rostington
+        elif self.marca_p.lower() == "premiere":
+            if self.cantidad < 100:
+                descuento = 0.15  # 15% de descuento
             elif 100 <= self.cantidad <= 200:
                 descuento = 0.30  # 30% de descuento
             else:
                 descuento = 0.40  # 40% de descuento
         else:
-            # Si no es "Emma", no se aplica descuento
+            # Si no es rostington o premiere, no se aplica descuento
             descuento = 0
 
-        # Valor neto con el descuento aplicado
+    # Valor neto con el descuento aplicado
         return self.v_bruto * (1 - descuento)
