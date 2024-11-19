@@ -2,7 +2,7 @@ import sqlite3
 
 
 class Database:
-    def __init__(self, db_path='DB\dbp'):
+    def __init__(self, db_path='compotas_app/DB/dbp'):
         self.connection = sqlite3.connect(db_path, check_same_thread=False)
         self.cursor = self.connection.cursor()
 
@@ -30,7 +30,7 @@ class Producto(Database):
     @classmethod
     def obtener_todos(cls):
         # Conectar a la base de datos
-        conexion = sqlite3.connect('DB\dbp')
+        conexion = sqlite3.connect('compotas_app/DB/dbp')
         cursor = conexion.cursor()
 
         # Ejecutar la consulta para obtener todos los produ ctos
@@ -196,3 +196,29 @@ class Factura(Database):
         """)
         detalles = self.cursor.fetchall()
         return detalles
+
+
+#modelo terceros
+class TipoTercero(Database):
+    def __init__(self, tipo):
+        super().__init__()
+        self.tipo = tipo
+
+    def guardar(self):
+        self.cursor.execute(
+            "INSERT INTO tipos_terceros (nombre_tipo) VALUES (?)",
+            (self.tipo,)
+        )
+        self.commit()
+
+    @classmethod
+    def obtener_todos(cls):
+        
+        
+        conexion = sqlite3.connect('compotas_app/DB/dbp')
+        cursor = conexion.cursor()
+        cursor.execute("SELECT id_tipo, nombre_tipo FROM tipos_terceros")
+        tipos = cursor.fetchall()
+        conexion.close()
+        return tipos
+

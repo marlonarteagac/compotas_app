@@ -22,3 +22,8 @@ class FacturaForm(FlaskForm):
     detalles = SelectMultipleField(
         'Detalles de Factura', coerce=int, validators=[DataRequired()])
     submit = SubmitField('Agregar a la Factura')
+
+class TipoTerceroForm(FlaskForm):
+    tipo = StringField('Tipo tercero', validators=[DataRequired()])
+    submit = SubmitField('Agregar tipo tercero')
+    

@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, flash
-from modelo import Factura, Producto, Venta, VentaConDescuento
-from formularios import FacturaForm, ProductoForm, VentaForm
+from modelo import Factura, Producto, TipoTercero, Venta, VentaConDescuento
+from formularios import FacturaForm, ProductoForm, TipoTerceroForm, VentaForm
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mi_secreto'
@@ -77,7 +77,16 @@ def listar_facturas():
     return render_template('facturas.html', facturas=facturas, total=total)
 
 
-
+@app.route('/crear-tipo-tercero', methods=['GET', 'POST'])
+def crear_tipo_tercero():
+    tipos_terceros = TipoTercero.obtener_todos()
+    form = TipoTerceroForm()
+    if form.validate_on_submit():
+        tipo = TipoTercero(tipo=form.tipo.data)
+        tipo.guardar()
+        flash('Tipo de Tercero creado con éxito', 'success')
+        return redirect(url_for('crear_tipo_tercero'))
+    return render_template('crear_tipo_tercero.html', form=form, tipos_terceros=tipos_terceros)
 
 
 

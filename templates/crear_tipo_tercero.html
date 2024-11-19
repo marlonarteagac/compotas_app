@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Crear Tipo de Tercero</title>
+</head>
+<body>
+    <h1>Crear Tipo de Tercero</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.tipo.label }}<br>
+            {{ form.tipo(size=40) }}<br>
+            {% for error in form.tipo.errors %}
+                <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+
+    <table border="1">
+        <tr>
+            <th>Nombre</th>
+        </tr>
+        {% for tipos in tipos_terceros %}
+        <tr>
+            <td>{{ tipos[1]}}</td>
+        </tr>
+
+        {% endfor %}
+       
+    </table>
+    <a href="{{ url_for('index') }}">Inicio</a>
+
+        <!-- Mostrar mensajes flash -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul>
+                {% for category, message in messages %}
+                    <li class="alert alert-{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+      {% endwith %}
+</body>
+</html>
