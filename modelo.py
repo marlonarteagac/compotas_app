@@ -1,6 +1,6 @@
 import sqlite3
 
-
+#conexion base datos
 class Database:
     def __init__(self, db_path='compotas_app/DB/dbp'):
         self.connection = sqlite3.connect(db_path, check_same_thread=False)
@@ -26,14 +26,14 @@ class Producto(Database):
         )
         self.commit()
 
-# cargar todo a la pantalla de inicio
+# cargar todos los productos a la pantalla de inicio (index)
     @classmethod
     def obtener_todos(cls):
         # Conectar a la base de datos
         conexion = sqlite3.connect('compotas_app/DB/dbp')
         cursor = conexion.cursor()
 
-        # Ejecutar la consulta para obtener todos los produ ctos
+        # Ejecutar la consulta para obtener todos los productos
         cursor.execute("SELECT marca_p, precio_p FROM productos")
         productos = cursor.fetchall()
 
@@ -44,17 +44,6 @@ class Producto(Database):
         lista_productos = [cls(marca_p, precio_p)
                            for marca_p, precio_p in productos]
         return lista_productos
-
-# Polimorfismo: una clase hija que hereda de Producto
-
-
-class ProductoDescuento(Producto):
-    def __init__(self, marca, precio, descuento):
-        super().__init__(marca, precio)
-        self.descuento = descuento
-
-    def precio_final(self):
-        return self.precio * (1 - self.descuento)
 
 
 # modelo detalle de venta
@@ -113,9 +102,7 @@ class Venta(Database):
         )   
         self.commit()
 
-# clase que hereda de Venta
-
-
+# clase que hereda de Venta aplica polimorfismo para el tema del descuento
 class VentaConDescuento(Venta):
     def calcular_valor_neto(self):
         # Aplicar descuento basado en la marca y la cantidad
