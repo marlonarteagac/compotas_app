@@ -21,4 +21,4 @@ class VentaForm(FlaskForm):
 class FacturaForm(FlaskForm):
     detalles = SelectMultipleField(
         'Detalles de Factura', coerce=int, validators=[DataRequired()])
-    submit = SubmitField('Crear Factura')
+    submit = SubmitField('Agregar a la Factura')

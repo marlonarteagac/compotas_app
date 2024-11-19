@@ -1,0 +1,10 @@
+<h1>Ventas</h1>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    <label for="detalles">Agregue ventas a la Factura:</label>
+    {{ form.detalles(class="form-select") }}
+    <br>
+    <button type="submit" class="btn btn-primary">{{ form.submit.label }}</button><br>
+    <a href="{{ url_for('index') }}">ir a productos</a><br>
+    <a href="{{ url_for('crear_producto') }}">Crear producto</a>
+</form>

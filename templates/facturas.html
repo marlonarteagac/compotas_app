@@ -1,28 +1,34 @@
-<h1>Lista de Facturas</h1>
+<h1>Factura de Venta</h1>
 <table>
     <thead>
         <tr>
-            <th>ID Factura</th>
-            <th>Marca</th>
+            <th>Factura</th>
+            <th>D. Factura</th>
+            <th>Producto</th>
             <th>Cantidad</th>
             <th>Valor Bruto</th>
+            <th>Descuento</th>
             <th>Valor Neto</th>
         </tr>
     </thead>
     <tbody>
         {% for factura in facturas %}
         <tr>
+          
             <td>{{ factura[0] }}</td>
             <td>{{ factura[1] }}</td>
             <td>{{ factura[2] }}</td>
             <td>{{ factura[3] }}</td>
             <td>{{ factura[4] }}</td>
+            <td>{{ factura[5] }}</td>
+            <td>{{ factura[6] }}</td>
+
         </tr>
         {% endfor %}
     </tbody>
 </table>
 
 <h2>Total: {{ total }}</h2>
-<a href="{{ url_for('nueva_factura') }}">Nueva factura</a><br>
+<a href="{{ url_for('nueva_factura') }}">Agregar item </a><br>
 <a href="{{ url_for('vender_producto') }}">Nueva venta</a><br>
 <a href="{{ url_for('index') }}">Inicio</a>

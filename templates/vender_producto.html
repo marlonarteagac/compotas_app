@@ -19,7 +19,19 @@
         
         {{ form.submit() }}
     </form>
-    <a href="{{ url_for('index') }}">ir a productos</a>
+    <a href="{{ url_for('index') }}">ir a productos</a><br>
+    <a href="{{ url_for('nueva_factura') }}">Facturar</a>
 
+    <!-- Mostrar mensajes flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <ul>
+            {% for category, message in messages %}
+                <li class="alert alert-{{ category }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+  {% endwith %}
 </body>
+
 </html>

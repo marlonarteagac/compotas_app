@@ -6,7 +6,7 @@
 </head>
 <body>
     <h1>Productos</h1>
-    <a href="{{ url_for('crear_producto') }}">Crear Nuevo Producto</a>
+  
     <table border="1">
         <tr>
             <th>Marca</th>
@@ -21,18 +21,11 @@
         {% endfor %}
        
     </table>
-   
+    <a href="{{ url_for('crear_producto') }}">Crear Nuevo Producto</a><br>
     <a href="{{ url_for('vender_producto') }}">Vender producto</a><br>
-    <a href="{{ url_for('nueva_factura') }}">Facturar</a>
+ 
+    
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-        <ul>
-            {% for category, message in messages %}
-                <li class="alert alert-{{ category }}">{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-  {% endwith %}
+    
 </body>
 </html>

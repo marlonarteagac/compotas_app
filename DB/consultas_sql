@@ -1,3 +1,34 @@
-SELECT f.id_fc, df.marca_p, df.cantidad,  df.v_bruto ,df.v_neto FROM facturas f JOIN detalles_f df ON f.id_fc = df.id_df
+SELECT f.id_fc as N_Factura,df.id_df as Detalle_factura, df.marca_p as Producto, df.cantidad as Cantidad,  df.v_bruto as Bruto, df.v_neto as Neto
+FROM detalles_f df 
+JOIN facturas f ON df.id_df = f.id_fc
 
-INSERT INTO facturas DEFAULT VALUES
+-- INSERT INTO facturas DEFAULT VALUES
+
+SELECT 
+    f.id_fc AS factura_id,
+    f.id_df AS detalle_factura_id,
+    d.marca_p AS producto,
+    d.cantidad,
+    d.v_bruto AS valor_bruto,
+    d.v_neto AS valor_neto
+FROM 
+    facturas f
+JOIN 
+    detalles_f d ON f.id_df = d.id_df;
+
+	
+	delete FROM detalles_f
+	
+SELECT 
+                            f.id_fc AS factura_id,
+                            f.id_df AS detalle_factura_id,
+                            d.marca_p AS producto,
+                            d.cantidad,
+                            d.v_bruto AS valor_bruto,
+							d.v_descuento as descuento,
+                            d.v_neto AS valor_neto
+							
+                            FROM 
+                            facturas f
+                            JOIN 
+                            detalles_f d ON f.id_df = d.id_df;

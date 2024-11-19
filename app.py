@@ -22,7 +22,7 @@ def crear_producto():
         producto = Producto(form.marca.data, form.precio.data)
         producto.guardar()
         flash('Producto creado con éxito', 'success')
-        return redirect(url_for('index'))
+        return redirect(url_for('crear_producto'))
     return render_template('crear_producto.html', form=form)
 
 
@@ -46,11 +46,11 @@ def vender_producto():
 
         venta.guardar()
         flash(f'Venta realizada con éxito: {venta.marca_p}, Cantidad: {venta.cantidad},Valor Bruto: {venta.v_bruto}, Descuento: {venta.v_descuento} Valor Neto: {venta.v_neto},', 'success')
-        return redirect(url_for('index'))
+        return redirect(url_for('vender_producto'))
 
     return render_template('vender_producto.html', form=form)
 
-@app.route('/facturas/nueva', methods=['GET', 'POST'])
+@app.route('/ventas', methods=['GET', 'POST'])
 def nueva_factura():
     factura = Factura()
     detalles_disponibles = factura.obtener_detalles_disponibles()
@@ -66,7 +66,7 @@ def nueva_factura():
         nueva_factura.guardar()
         return redirect(url_for('listar_facturas'))
 
-    return render_template('nueva_factura.html', form=form)
+    return render_template('ventas.html', form=form)
 
 #mostrar las facturas
 @app.route('/facturas')

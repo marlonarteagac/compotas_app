@@ -2,7 +2,7 @@ import sqlite3
 
 
 class Database:
-    def __init__(self, db_path='compotas_app/DB/dbp'):
+    def __init__(self, db_path='DB\dbp'):
         self.connection = sqlite3.connect(db_path, check_same_thread=False)
         self.cursor = self.connection.cursor()
 
@@ -30,10 +30,10 @@ class Producto(Database):
     @classmethod
     def obtener_todos(cls):
         # Conectar a la base de datos
-        conexion = sqlite3.connect('compotas_app/DB/dbp')
+        conexion = sqlite3.connect('DB\dbp')
         cursor = conexion.cursor()
 
-        # Ejecutar la consulta para obtener todos los productos
+        # Ejecutar la consulta para obtener todos los produ ctos
         cursor.execute("SELECT marca_p, precio_p FROM productos")
         productos = cursor.fetchall()
 
@@ -108,9 +108,9 @@ class Venta(Database):
     def guardar(self):
         # Inserta el detalle de la venta en la tabla detalles_f
         self.cursor.execute(
-            "INSERT INTO detalles_f (marca_p, cantidad, v_bruto, v_neto) VALUES (?, ?, ?, ?)",
-            (self.marca_p, self.cantidad, self.v_bruto, self.v_neto)
-        )
+            "INSERT INTO detalles_f (marca_p, cantidad, v_bruto, v_descuento, v_neto) VALUES (?, ?, ?, ?, ?)",
+            (self.marca_p, self.cantidad, self.v_bruto, self.v_descuento, self.v_neto)
+        )   
         self.commit()
 
 # clase que hereda de Venta
@@ -165,7 +165,19 @@ class Factura(Database):
     def obtener_facturas(self):
         # Obtener todas las facturas y sus detalles
         self.cursor.execute("""
-            SELECT * from facturas
+                            SELECT 
+                            f.id_fc AS factura_id,
+                            f.id_df AS detalle_factura_id,
+                            d.marca_p AS producto,
+                            d.cantidad,
+                            d.v_bruto AS valor_bruto,
+							d.v_descuento as descuento,
+                            d.v_neto AS valor_neto
+							
+                            FROM 
+                            facturas f
+                            JOIN 
+                            detalles_f d ON f.id_df = d.id_df;
         """)
         facturas = self.cursor.fetchall()
         return facturas
@@ -173,8 +185,8 @@ class Factura(Database):
     @staticmethod
     def calcular_total(facturas):
         # Calcular el total de todas las facturas
-        # f[3] es el valor bruto de cada detalle
-        total = sum(f[1] for f in facturas)
+        # f[46] es el valor neto de cada detalle
+        total = sum(f[6] for f in facturas)
         return total
 
     def obtener_detalles_disponibles(self):
